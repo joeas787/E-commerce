@@ -2,6 +2,7 @@
 
 using E_Commerce.persistence.Context;
 using E_Commerce.persistence.DbInitializer;
+using E_Commerce.persistence.Repository;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -20,6 +21,7 @@ public static class PersistenceInjection
 
         });
         services.AddScoped<IDbInitializer, Dbinitializer>();
+        services.AddScoped<IUnitOfWork,UnitOfWork>();
         return services;
 
 
