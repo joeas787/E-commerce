@@ -34,5 +34,19 @@ namespace E_Commerce.persistence.Repository
         {
             dbContext.Set<T>().Update(entity);
         }
+        public async Task<IEnumerable<T>> GetAllAsync(ISpecifications<T> specifications, CancellationToken cancellationToken = default)
+        {
+            return await dbContext.Set<T>().CreateQuery(specifications).ToListAsync(cancellationToken);
+        }
+
+        public async Task<T> GetByAsync(ISpecifications<T> specifications, CancellationToken cancellationToken = default)
+        {
+            return await dbContext.Set<T>().CreateQuery(specifications).FirstOrDefaultAsync(cancellationToken);
+        }
+
+        public async Task<int> CountAsync(ISpecifications<T> specifications, CancellationToken cancellationToken = default)
+        {
+            return await dbContext.Set<T>().CreateQuery(specifications).CountAsync();
+        }
     }
 }

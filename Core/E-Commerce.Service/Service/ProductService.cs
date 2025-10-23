@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using E_Commerce.Domain.Contracts;
 using E_Commerce.Domain.Entities.Products;
+using E_Commerce.Service.specifications;
+using E_Commerce.Service.specifications;
 using E_Commerce.ServiceAbstraction;
+using E_Commerce.Shared.DTO;
 using E_Commerce.Shared.DTO.Products;
 using System;
 using System.Collections.Generic;
@@ -21,14 +24,19 @@ public class ProductService (IUnitOfWork unitOfWork,IMapper mapper) : IProductSe
 
     public async Task<ProductResponse?> GetByIdAsync(int Id, CancellationToken cancellationToken = default)
     {
-       var product= await unitOfWork.GetRepository<Product,int>().GetByIdAsync(Id, cancellationToken);
+       var product= await unitOfWork.GetRepository<Product,int>().GetByAsync(new ProductSpecifications(Id), cancellationToken);
         return mapper.Map<ProductResponse>(product);
     }
 
-    public async Task<IEnumerable<ProductResponse>> GetProductsAsync(CancellationToken cancellationToken = default)
+    public async Task<PaginatedResult<ProductResponse>> GetProductsAsync(ProductParameters parameters, CancellationToken cancellationToken = default)
     {
-        var product = await unitOfWork.GetRepository<Product, int>().GetAllAsync(cancellationToken);
-        return mapper.Map<IEnumerable<ProductResponse>>(product);
+        var spic = new ProductSpecifications(parameters);
+        var product = await unitOfWork.GetRepository<Product, int>().GetAllAsync(spic,cancellationToken);
+
+        var total = await unitOfWork.GetRepository<Product, int>().CountAsync(new ProductCount(parameters), cancellationToken);
+        var products= mapper.Map<IEnumerable<ProductResponse>>(product);
+
+        return new(parameters.index,products.Count(),total,products);
     }
 
     public async Task<IEnumerable<TypeResponse>> GetTypesAsync(CancellationToken cancellationToken = default)
