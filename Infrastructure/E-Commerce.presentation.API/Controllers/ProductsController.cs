@@ -1,4 +1,5 @@
-﻿using E_Commerce.ServiceAbstraction;
+﻿using E_Commerce.presentation.API.Attributes;
+using E_Commerce.ServiceAbstraction;
 using E_Commerce.Shared.DTO;
 using E_Commerce.Shared.DTO.Products;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,7 @@ namespace E_Commerce.presentation.API.Controllers;
 public class ProductsController(IProductService service)
     : APIBaseController
 {
+    [Cash]
     [HttpGet]
     public async Task<ActionResult<PaginatedResult<ProductResponse>>> GetProducts([FromQuery]ProductParameters parameters , CancellationToken cancellationToken = default)
     {

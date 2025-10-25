@@ -15,7 +15,7 @@ public static class ApplicationInjection
 public static IServiceCollection AddServices(this IServiceCollection services)
     {
 
-
+        services.AddScoped<IBasketService, BasketService>();
         services.AddScoped<IProductService, ProductService>();
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
 

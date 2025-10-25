@@ -6,13 +6,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using E_Commerce.presentation.API.Attributes;
 
 namespace E_Commerce.presentation.API.Controllers
 {
     public class BasketsController(IBasketService basketService) :APIBaseController
     {
         [HttpPost]
-        public async Task<ActionResult<CustomerBasket>> Update(CustomerBasket basket)
+        public async Task<ActionResult<CustomerBasketDTO>> Update(CustomerBasketDTO basket)
         {
 
 
@@ -21,10 +22,11 @@ namespace E_Commerce.presentation.API.Controllers
 
 
         }
+       
         [HttpGet]
 
 
-        public async Task<ActionResult<CustomerBasket>> Get(string id)
+        public async Task<ActionResult<CustomerBasketDTO>> Get(string id)
         {
 
 
