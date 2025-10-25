@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace E_Commerce.Shared.DTO.Basket;
 
-public class CustomerBasket
+public class CustomerBasketDTO
 {
 
 
     public string Id { get; set; }
-    public ICollection<ItemBaskect> item { get; set; }
+    public ICollection<BasketItemDTO> item { get; set; } = [];
 }
