@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using E_Commerce.Domain.Contracts;
 using E_Commerce.Domain.Entities.Products;
+using E_Commerce.Service.Exceptions;
 using E_Commerce.Service.specifications;
 using E_Commerce.Service.specifications;
 using E_Commerce.ServiceAbstraction;
@@ -22,9 +23,11 @@ public class ProductService (IUnitOfWork unitOfWork,IMapper mapper) : IProductSe
         return mapper.Map<IEnumerable<BrandResponse>>(Brand);
     }
 
-    public async Task<ProductResponse?> GetByIdAsync(int Id, CancellationToken cancellationToken = default)
+    public async Task<ProductResponse> GetByIdAsync(int Id, CancellationToken cancellationToken = default)
     {
        var product= await unitOfWork.GetRepository<Product,int>().GetByAsync(new ProductSpecifications(Id), cancellationToken);
+        if(product == null)
+            throw new ProductNotFound(Id);
         return mapper.Map<ProductResponse>(product);
     }
 

@@ -17,7 +17,10 @@ public static IServiceCollection AddServices(this IServiceCollection services)
 
         services.AddScoped<IBasketService, BasketService>();
         services.AddScoped<IProductService, ProductService>();
+        services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IOrderService, OrderService>();
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
+        services.AddScoped<IAuthService, AuthService>();
 
         return services;
     }

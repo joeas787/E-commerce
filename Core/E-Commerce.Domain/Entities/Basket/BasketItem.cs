@@ -9,7 +9,7 @@ namespace E_Commerce.Domain.Entities.Basket;
 public class BasketItem
 {
 #nullable disable
-    public string Id { get; set; }
+    public int Id { get; set; }
     public string Name { get; init; }
 
     public string PictureUrl { get; init; }
