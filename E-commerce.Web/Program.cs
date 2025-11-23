@@ -15,7 +15,7 @@ namespace E_commerce.Web
     public class Program
     {
         public static async Task Main(string[] args)
-        api 7{
+       {
             //
             //
             var builder = WebApplication.CreateBuilder(args);
