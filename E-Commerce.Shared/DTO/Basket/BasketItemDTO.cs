@@ -3,12 +3,12 @@
 public class BasketItemDTO
 {
 #nullable disable
-    public string Id { get; set; }
-    public string Name { get; init; }
-    
-    public string PictureUrl { get; init; }
-    public decimal Price { get; init; }
-    public int Quantatiy { get; init; }
+    public int Id { get; set; }
+    public string Name { get; set; }
+
+    public string PictureUrl { get; set; }
+    public decimal Price { get; set; }
+    public int Quantatiy { get; set; }
 
 
 

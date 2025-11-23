@@ -2,6 +2,8 @@
 using E_Commerce.ServiceAbstraction;
 using E_Commerce.Shared.DTO;
 using E_Commerce.Shared.DTO.Products;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -21,10 +23,11 @@ public class ProductsController(IProductService service)
         return Ok(response);
 
     }
+    //[Authorize]
     [HttpGet("{id}")]
     public async Task<ActionResult<ProductResponse>> Get(int id,CancellationToken cancellationToken = default)
     {
-
+       // throw new NotImplementedException();
         var response = await service.GetByIdAsync(id,cancellationToken);
 
         return Ok(response);
