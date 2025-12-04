@@ -1,4 +1,4 @@
-﻿using E_Commerce.Domain.Entities.Products;
+﻿using E_Commerce.Domain.Entities.OrderEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace E_Commerce.Service.specifications
 {
-    public class GetProductById (List<int> Id): BaseSpecifications<Product>(p=>Id.Contains(p.Id));
-    
+    public class OrderIntetById(string id) : BaseSpecifications<Order>(o=>o.PaymetIntentId==id);
     
 }

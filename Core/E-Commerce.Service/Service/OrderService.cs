@@ -20,6 +20,8 @@ namespace E_Commerce.Service.Service
             var basket = await basketRepository.GetAsync(orderRequest.BasketId);
             if (basket == null)
                 throw new Exception("Basket Not Found");
+            if (basket.PaymentIntentId == null)
+                throw new Exception("No found PaymentIntent");
             var method = await unitOfWork.GetRepository<DeliveryMethod,int>().GetByIdAsync(orderRequest.DeliveryMethodId,cancellationToken);
             if (method == null) throw new Exception("Method Not Found");
             var ids=basket.item.Select(x => x.Id).ToList();
@@ -49,6 +51,10 @@ namespace E_Commerce.Service.Service
 
 
             }
+            var orderrepo = unitOfWork.GetRepository<Order, Guid>();
+            var exorder = await orderrepo.GetByAsync(new OrderIntetById(basket.PaymentIntentId));
+            if(exorder is not null) 
+                orderrepo.Remove(exorder);
             var subtotal=orderitems.Sum(x => x.Quantatiy*x.Price);
             var address=mapper.Map<OrderAddress>(orderRequest.Address);
             var order = new Order
@@ -58,10 +64,12 @@ namespace E_Commerce.Service.Service
                 Items = orderitems,
                 UserEmail = email,
                 DeliveryMethod = method
+                ,PaymetIntentId=basket.PaymentIntentId
 
 
             };
-            var orderrepo = unitOfWork.GetRepository<Order, Guid>();
+           
+
             orderrepo.Add(order);
             await unitOfWork.SaveChangesAsync(cancellationToken);
             return mapper.Map<OrderResponse>(order);    

@@ -5,6 +5,7 @@ using E_Commerce.Domain.Contracts;
 using E_Commerce.persistence.PersistenceService;
 using E_Commerce.Service.Contracts;
 using E_Commerce.Service.Injection;
+using E_Commerce.ServiceAbstraction;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -15,7 +16,7 @@ namespace E_commerce.Web
     public class Program
     {
         public static async Task Main(string[] args)
-        api 7{
+        {
             //
             //
             var builder = WebApplication.CreateBuilder(args);
@@ -28,6 +29,7 @@ namespace E_commerce.Web
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped<ITokenService, TokenService>();
+            builder.Services.AddScoped<IPaymentService, PaymentService>();
             builder.Services.AddExceptionHandler<ExceptionHandlerEx>();
            // builder.Services.Configure<JWTOptions>(builder.Configuration.GetSection(JWTOptions.SectionName));
             builder.Services.Configure<ApiBehaviorOptions>(o =>
