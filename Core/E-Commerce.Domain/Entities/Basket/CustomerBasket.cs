@@ -9,6 +9,10 @@ namespace E_Commerce.Domain.Entities.Basket
     public class CustomerBasket
     {
         public String Id { get; set; } = default!;
-       public ICollection<BasketItem> item { get; set; } = [];
+        public int? DeliveryMethodId { get; set; }
+        public decimal ShippingPrice { get; set; }
+        public string? PaymentIntentId { get; set; }
+        public string? ClientSecret { get; set; }
+        public ICollection<BasketItem> item { get; set; } = [];
     }
 }
