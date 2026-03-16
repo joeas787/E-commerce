@@ -45,7 +45,7 @@ namespace E_commerce.Web
                      Title="one or more vaild error",
                      Detail="Valid errors",
                      Status=StatusCodes.Status400BadRequest,
-                        Extensions = { { "r",r} }
+                        Extensions = { { "Errors",r} }
 
 
 
